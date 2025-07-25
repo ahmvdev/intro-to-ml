@@ -1,5 +1,6 @@
 import pandas as pd 
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
 
 melb_file_path = '../Kaggle-Datasets/melb_data.csv'
 
@@ -24,11 +25,13 @@ y = melb_data.Price
 
 model = DecisionTreeRegressor(random_state=1)
 
-melb_model = model.fit(X, y)
+train_X, val_X,train_y, val_y = train_test_split(X, y)
 
-predictions = melb_model.predict(X)
+melb_model = model.fit(train_X, train_y)
 
-print(y.head())
-print(predictions)
+predictions = melb_model.predict(val_X)
+
+print(predictions[:5])
+print(val_y)
 
 
